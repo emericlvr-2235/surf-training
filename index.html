@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="Training"/>
   <meta name="theme-color" content="#0a0f1e"/>
-  <title>🏄 Training</title>
+  <title>Training</title>
   <link rel="manifest" href="/manifest.json"/>
   <link rel="apple-touch-icon" href="/icon-192.png"/>
   <style>
@@ -15,9 +15,6 @@
     body { background:#0a0f1e; font-family:'Outfit',sans-serif; overflow-x:hidden; }
     #root { min-height:100vh; min-height:-webkit-fill-available; }
     input, textarea, button { font-family:inherit; }
-    /* Safe area for iPhone notch */
-    .safe-top { padding-top: env(safe-area-inset-top, 0px); }
-    .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
@@ -28,7 +25,8 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel" data-presets="react">
-import { useState, useEffect, useRef, useCallback } from "react";
+const { useState, useEffect, useRef, useCallback } = React;
+
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const PROGRAM = {
@@ -781,7 +779,7 @@ function Onboarding({onDone}){
 }
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
-export default function App(){
+function App(){
   const[data,setData]=useState(loadData);
   const[screen,setScreen]=useState("home");
   const[activeSession,setActive]=useState(null);
@@ -831,6 +829,15 @@ export default function App(){
     onHistory={()=>setScreen("history")}/>;
 }
 
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
