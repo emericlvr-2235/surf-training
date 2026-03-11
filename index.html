@@ -28,19 +28,19 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel" data-presets="react">
-const { useState, useEffect, useRef, useCallback } = React;
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const PROGRAM = {
   A: {
     label: "FULL BODY A", subtitle: "Force & Dos", color: "#0ea5e9",
     exercises: [
-      { id:"A1", name:"Pull-over élastique couché",      load:"15→20 kg",   sets:4, reps:"12",       rest:90, notes:"Geste rame — priorité absolue" },
-      { id:"A2", name:"Rowing bilatéral élastique",      load:"20→25 kg",   sets:4, reps:"12",       rest:75, notes:"Maintien 1 sec en haut" },
-      { id:"A3", name:"Développé épaules élastique",     load:"10→15 kg",   sets:3, reps:"12",       rest:75, notes:"Deltoïdes — silhouette athlétique" },
-      { id:"A4", name:"Pompes pieds surélevées",         load:"Poids corps", sets:4, reps:"12-15",   rest:60, notes:"Haut pectoraux + épaule antérieure" },
-      { id:"A5", name:"Élévation latérale",              load:"3 kg",        sets:3, reps:"15",       rest:60, notes:"Mouvements stricts, pas d'élan" },
-      { id:"A6", name:"Gainage planche",                 load:"—",           sets:3, reps:'70"',      rest:60, notes:"Corps rigide, respiration contrôlée" },
+      { id:"A1", name:"Pull-over élastique couché",      load:"15→20 kg",   sets:4, reps:"12",      rest:90, notes:"Geste rame — priorité absolue" },
+      { id:"A2", name:"Rowing bilatéral élastique",      load:"20→25 kg",   sets:4, reps:"12",      rest:75, notes:"Maintien 1 sec en haut" },
+      { id:"A3", name:"Développé épaules élastique",     load:"10→15 kg",   sets:3, reps:"12",      rest:75, notes:"Deltoïdes — silhouette athlétique" },
+      { id:"A4", name:"Pompes pieds surélevées",         load:"Poids corps", sets:4, reps:"12-15",  rest:60, notes:"Haut pectoraux + épaule antérieure" },
+      { id:"A5", name:"Élévation latérale",              load:"3 kg",        sets:3, reps:"15",      rest:60, notes:"Mouvements stricts, pas d'élan" },
+      { id:"A6", name:"Gainage planche",                 load:"—",           sets:3, reps:'70"',     rest:60, notes:"Corps rigide, respiration contrôlée" },
     ],
     surf: [
       { name:"Pull-over léger",              vol:"2×20 — 10 kg" },
@@ -55,7 +55,7 @@ const PROGRAM = {
       { id:"B2", name:"Pompes serrées tempo lent",     load:"Poids corps", sets:4, reps:"10-12",   rest:60, notes:"3-1-1 — contraction longue" },
       { id:"B3", name:"Rowing tempo lent élastique",   load:"20→25 kg",   sets:3, reps:"15",       rest:60, notes:"3-0-1 — dos en tension" },
       { id:"B4", name:"Face pull élastique",           load:"5→10 kg",    sets:3, reps:"20",       rest:45, notes:"Rotation externe — santé épaule" },
-      { id:"B5", name:"Woodchopper élastique",         load:"10→15 kg",   sets:3, reps:"12/côté",  rest:45, notes:"Core rotatoire — spécifique surf" },
+      { id:"B5", name:"Pallwood élastique",            load:"10→15 kg",   sets:3, reps:"12/côté",  rest:45, notes:"Élastique fixé en hauteur, tirer en diagonale vers le bas" },
       { id:"B6", name:"Reverse lunge",                 load:"3 kg",       sets:3, reps:"10/jambe", rest:60, notes:"Équilibre + fessier" },
       { id:"B7", name:"Hollow hold",                   load:"—",          sets:3, reps:'35"',      rest:45, notes:"Core profond — position surf" },
     ],
@@ -69,11 +69,11 @@ const PROGRAM = {
     exercises: [
       { id:"C1", name:"Pull-over dynamique explosif",   load:"15→20 kg",   sets:4, reps:"10",       rest:60, notes:"Explosif montée, lent descente" },
       { id:"C2", name:"Pompes lentes (3 sec descente)", load:"Poids corps", sets:3, reps:"15",       rest:60, notes:"Hypertrophie excentrique" },
-      { id:"C3", name:"Fentes marche",                  load:"3 kg",       sets:3, reps:"20 total",  rest:60, notes:"Jambes + souffle" },
-      { id:"C4", name:"Mountain climbers",              load:"—",          sets:3, reps:'45"',       rest:60, notes:"Core + cardio — paddle intensif" },
-      { id:"C5", name:"Élévation latérale / frontale",  load:"3 kg",       sets:3, reps:"15",       rest:45, notes:"Largeur épaules" },
-      { id:"C6", name:"Relevés de jambes",              load:"—",          sets:3, reps:"12",        rest:30, notes:"Abdos bas + fléchisseurs hanche" },
-      { id:"C7", name:"Crunch",                         load:"—",          sets:3, reps:"15",        rest:30, notes:"Finition séance" },
+      { id:"C3", name:"Fentes marche",                  load:"3 kg",        sets:3, reps:"20 total", rest:60, notes:"Jambes + souffle" },
+      { id:"C4", name:"Mountain climbers",              load:"—",           sets:3, reps:'45"',      rest:60, notes:"Core + cardio — paddle intensif" },
+      { id:"C5", name:"Élévation latérale / frontale",  load:"3 kg",        sets:3, reps:"15",       rest:45, notes:"Largeur épaules" },
+      { id:"C6", name:"Relevés de jambes",              load:"—",           sets:3, reps:"12",       rest:30, notes:"Abdos bas + fléchisseurs hanche" },
+      { id:"C7", name:"Crunch",                         load:"—",           sets:3, reps:"15",       rest:30, notes:"Finition séance" },
     ],
     surf: [
       { name:"Pull-over léger",  vol:"1×20 — 10 kg" },
@@ -86,12 +86,12 @@ const BONUS = {
   label: "CIRCUIT BONUS", subtitle: "Semaine sans surf · 4 tours", color: "#a855f7",
   note: '4 tours complets · Repos 60" entre les tours · 30-35 min',
   exercises: [
-    { id:"X1", name:"Pull-over élastique", load:"15 kg",       sets:4, reps:"15",       rest:60, notes:"Maintenir le geste rame" },
-    { id:"X2", name:"Pompes explosives",   load:"Poids corps",  sets:4, reps:"12",       rest:60, notes:"Puissance décollage vague" },
-    { id:"X3", name:"Reverse lunge",       load:"3 kg",         sets:4, reps:"10/jambe", rest:60, notes:"Jambes + stabilité surf" },
-    { id:"X4", name:"Mountain climbers",   load:"—",            sets:4, reps:'45"',      rest:60, notes:"Souffle + core" },
-    { id:"X5", name:"Élévation latérale",  load:"3 kg",         sets:4, reps:"15",       rest:60, notes:"Épaules — entretien" },
-    { id:"X6", name:"Planche",             load:"—",            sets:4, reps:'60"',      rest:60, notes:"Gainage — fin de tour" },
+    { id:"X1", name:"Pull-over élastique",  load:"15 kg",       sets:4, reps:"15",       rest:60, notes:"Maintenir le geste rame" },
+    { id:"X2", name:"Pompes explosives",    load:"Poids corps",  sets:4, reps:"12",       rest:60, notes:"Puissance décollage vague" },
+    { id:"X3", name:"Reverse lunge",        load:"3 kg",         sets:4, reps:"10/jambe", rest:60, notes:"Jambes + stabilité surf" },
+    { id:"X4", name:"Mountain climbers",    load:"—",            sets:4, reps:'45"',      rest:60, notes:"Souffle + core" },
+    { id:"X5", name:"Élévation latérale",   load:"3 kg",         sets:4, reps:"15",       rest:60, notes:"Épaules — entretien" },
+    { id:"X6", name:"Planche",              load:"—",            sets:4, reps:'60"',      rest:60, notes:"Gainage — fin de tour" },
   ],
   surf: []
 };
@@ -147,12 +147,6 @@ function computeStatus(log) {
   return { status:"ready" };
 }
 
-function getWeekLog(log) {
-  const now = new Date(); const monday = new Date(now);
-  monday.setDate(now.getDate()-((now.getDay()+6)%7)); monday.setHours(0,0,0,0);
-  return log.filter(e=>new Date(e.date)>=monday);
-}
-
 function hasNoSurfThisWeek(log) {
   return getWeekLog(log).filter(e=>e.type==="surf").length === 0;
 }
@@ -165,15 +159,21 @@ function nextSession(log) {
   return SESSION_ORDER[(SESSION_ORDER.indexOf(last)+1)%3];
 }
 
+function getWeekLog(log) {
+  const now = new Date(); const monday = new Date(now);
+  monday.setDate(now.getDate()-((now.getDay()+6)%7)); monday.setHours(0,0,0,0);
+  return log.filter(e=>new Date(e.date)>=monday);
+}
+
 // ─── ICONS ───────────────────────────────────────────────────────────────────
 const Ic = {
-  back:    ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20"><polyline points="15,18 9,12 15,6"/></svg>,
-  check:   ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="20,6 9,17 4,12"/></svg>,
-  edit:    ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>,
-  history: ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>,
-  skip:    ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18"><polyline points="5,12 19,12"/><polyline points="13,6 19,12 13,18"/></svg>,
-  play:    ()=><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="5,3 19,12 5,21"/></svg>,
-  trash:   ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><polyline points="3,6 5,6 21,6"/><path d="M19,6l-1,14a2,2,0,0,1-2,2H8a2,2,0,0,1-2-2L5,6"/><path d="M10,11v6"/><path d="M14,11v6"/></svg>,
+  back:     ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20"><polyline points="15,18 9,12 15,6"/></svg>,
+  check:    ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="20,6 9,17 4,12"/></svg>,
+  edit:     ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>,
+  history:  ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>,
+  play:     ()=><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="5,3 19,12 5,21"/></svg>,
+  trash:    ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><polyline points="3,6 5,6 21,6"/><path d="M19,6l-1,14a2,2,0,0,1-2,2H8a2,2,0,0,1-2-2L5,6"/><path d="M10,11v6"/><path d="M14,11v6"/></svg>,
+  calendar: ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
 };
 
 const btn = (bg, extra={}) => ({
@@ -182,77 +182,70 @@ const btn = (bg, extra={}) => ({
   fontSize:14, fontWeight:600, cursor:"pointer", fontFamily:"inherit", ...extra
 });
 
-// ─── TIMER ───────────────────────────────────────────────────────────────────
-function useTimer() {
-  const [time,setTime]=useState(0); const [running,setRunning]=useState(false); const ref=useRef(null);
-  const start=useCallback(s=>{setTime(s);setRunning(true);},[]);
-  const stop=useCallback(()=>{setRunning(false);clearInterval(ref.current);},[]);
-  const reset=useCallback(()=>{stop();setTime(0);},[stop]);
-  useEffect(()=>{
-    if(running){ref.current=setInterval(()=>setTime(t=>{if(t<=1){clearInterval(ref.current);setRunning(false);return 0;}return t-1;}),1000);}
-    return()=>clearInterval(ref.current);
-  },[running]);
-  return{time,running,start,stop,reset};
-}
+const inputStyle = {
+  width:"100%", background:"rgba(255,255,255,0.07)",
+  border:"1px solid rgba(255,255,255,0.12)", borderRadius:10,
+  padding:"10px 14px", color:"#fff", fontSize:16,
+  fontFamily:"inherit", boxSizing:"border-box"
+};
 
-function RestTimer({seconds,color,onDone}){
-  const{time,running,start,reset}=useTimer();
-  const[done,setDone]=useState(false);
-  const progress=seconds>0?(time/seconds)*100:0;
-  useEffect(()=>{if(!running&&time===0&&done)onDone?.();},[running,time,done]);
-  const r=44,circ=2*Math.PI*r;
-  return(
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:14}}>
-      <div style={{position:"relative",width:120,height:120}}>
-        <svg width="120" height="120" style={{transform:"rotate(-90deg)"}}>
-          <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="7"/>
-          <circle cx="60" cy="60" r={r} fill="none" stroke={color} strokeWidth="7"
-            strokeDasharray={circ} strokeDashoffset={circ*(1-progress/100)}
-            strokeLinecap="round" style={{transition:"stroke-dashoffset 1s linear"}}/>
-        </svg>
-        <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",
-          fontSize:30,fontWeight:700,color:"#fff",fontFamily:"monospace"}}>{running?time:seconds}</div>
-      </div>
-      <div style={{display:"flex",gap:10}}>
-        {!done
-          ?<button onClick={()=>{setDone(true);start(seconds);}} style={btn(color)}><Ic.play/> Lancer repos</button>
-          :<button onClick={()=>{reset();setDone(false);onDone?.();}} style={btn("rgba(255,255,255,0.15)")}><Ic.skip/> Passer</button>
-        }
-      </div>
-      <div style={{fontSize:12,color:"rgba(255,255,255,0.3)"}}>Repos recommandé : {seconds}s</div>
-    </div>
-  );
-}
-
-// ─── EDIT MODAL ───────────────────────────────────────────────────────────────
-function EditModal({ex,current,onSave,onClose,color}){
-  const[sets,setSets]=useState(current.sets);
-  const[reps,setReps]=useState(current.reps);
-  const[load,setLoad]=useState(current.load);
-  const[note,setNote]=useState(current.userNote||"");
+// ─── EDIT MODAL (preview — objectif prochaine séance) ────────────────────────
+function EditModal({ex, current, onSave, onClose, color}){
+  const [sets, setSets] = useState(current.sets);
+  const [reps, setReps] = useState(current.reps);
+  const [load, setLoad] = useState(current.load);
+  const [rest, setRest] = useState(String(current.rest ?? ex.rest));
+  const [note, setNote] = useState(current.userNote||"");
   return(
     <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.9)",zIndex:100,display:"flex",alignItems:"flex-end",justifyContent:"center"}} onClick={onClose}>
       <div onClick={e=>e.stopPropagation()} style={{background:"#131c30",borderRadius:"22px 22px 0 0",padding:"28px 24px 48px",width:"100%",maxWidth:480,borderTop:`3px solid ${color}`}}>
         <div style={{fontSize:11,color,fontWeight:700,letterSpacing:2,marginBottom:4}}>OBJECTIF PROCHAINE SÉANCE</div>
-        <div style={{fontSize:13,color:"rgba(255,255,255,0.35)",marginBottom:16,fontStyle:"italic"}}>Modifie pour la prochaine fois</div>
+        <div style={{fontSize:13,color:"rgba(255,255,255,0.35)",marginBottom:16,fontStyle:"italic"}}>Ce que tu viens de faire est déjà enregistré ✓</div>
         <div style={{fontSize:17,color:"#fff",fontWeight:700,marginBottom:22,lineHeight:1.3}}>{ex.name}</div>
         {[["Séries",sets,setSets],["Reps / Durée",reps,setReps],["Charge / Élastique",load,setLoad]].map(([label,val,setter])=>(
           <div key={label} style={{marginBottom:14}}>
             <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:5,letterSpacing:1}}>{label.toUpperCase()}</div>
-            <input value={val} onChange={e=>setter(e.target.value)} style={{width:"100%",background:"rgba(255,255,255,0.07)",
-              border:`1px solid rgba(255,255,255,0.12)`,borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:16,fontFamily:"inherit",boxSizing:"border-box"}}/>
+            <input value={val} onChange={e=>setter(e.target.value)} style={inputStyle}/>
           </div>
         ))}
+        <div style={{marginBottom:14}}>
+          <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:5,letterSpacing:1}}>REPOS INTER-SÉRIES (secondes)</div>
+          <input value={rest} onChange={e=>setRest(e.target.value)} type="number" inputMode="numeric" style={inputStyle}/>
+        </div>
         <div style={{marginBottom:22}}>
           <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:5,letterSpacing:1}}>NOTE PERSONNELLE</div>
           <textarea value={note} onChange={e=>setNote(e.target.value)} rows={2}
             placeholder="Ressenti, variante, attention particulière..."
-            style={{width:"100%",background:"rgba(255,255,255,0.07)",border:`1px solid rgba(255,255,255,0.12)`,
-              borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:14,fontFamily:"inherit",resize:"none",boxSizing:"border-box"}}/>
+            style={{...inputStyle,fontSize:14,resize:"none"}}/>
         </div>
         <div style={{display:"flex",gap:10}}>
           <button onClick={onClose} style={{...btn("rgba(255,255,255,0.08)"),flex:1,justifyContent:"center"}}>Annuler</button>
-          <button onClick={()=>onSave({sets,reps,load,userNote:note})} style={{...btn(color),flex:2,justifyContent:"center"}}><Ic.check/> Sauvegarder</button>
+          <button onClick={()=>onSave({sets,reps,load,rest:Number(rest)||ex.rest,userNote:note})}
+            style={{...btn(color),flex:2,justifyContent:"center"}}><Ic.check/> Sauvegarder</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── DATE EDIT MODAL ─────────────────────────────────────────────────────────
+function DateEditModal({entry, entryIndex, onSave, onClose}){
+  const [date, setDate] = useState(entry.date);
+  return(
+    <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.9)",zIndex:100,display:"flex",alignItems:"flex-end",justifyContent:"center"}} onClick={onClose}>
+      <div onClick={e=>e.stopPropagation()} style={{background:"#131c30",borderRadius:"22px 22px 0 0",padding:"28px 24px 48px",width:"100%",maxWidth:480,borderTop:"3px solid rgba(255,255,255,0.2)"}}>
+        <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",fontWeight:700,letterSpacing:2,marginBottom:12}}>MODIFIER LA DATE</div>
+        <div style={{fontSize:16,color:"#fff",fontWeight:600,marginBottom:20}}>
+          {entry.type==="surf" ? "Session surf" : entry.label}
+        </div>
+        <div style={{marginBottom:24}}>
+          <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:8,letterSpacing:1}}>DATE</div>
+          <input type="date" value={date} onChange={e=>setDate(e.target.value)}
+            max={todayStr()} style={{...inputStyle, colorScheme:"dark"}}/>
+        </div>
+        <div style={{display:"flex",gap:10}}>
+          <button onClick={onClose} style={{...btn("rgba(255,255,255,0.08)"),flex:1,justifyContent:"center"}}>Annuler</button>
+          <button onClick={()=>onSave(entryIndex, date)} style={{...btn("#0ea5e9"),flex:2,justifyContent:"center"}}><Ic.check/> Confirmer</button>
         </div>
       </div>
     </div>
@@ -273,13 +266,15 @@ function SessionPreview({sessionKey, data, onUpdate, onStart, onBack, readOnly=f
 
   return(
     <div style={{minHeight:"100vh",background:"#0a0f1e",color:"#fff",fontFamily:"'Outfit',sans-serif"}}>
-      <div style={{padding:"env(safe-area-inset-top,16px) 20px 0",paddingTop:"max(env(safe-area-inset-top),16px)",display:"flex",alignItems:"center",gap:12}}>
+      <div style={{padding:"16px 20px 0",display:"flex",alignItems:"center",gap:12}}>
         <button onClick={onBack} style={{background:"none",border:"none",color:"rgba(255,255,255,0.45)",cursor:"pointer",padding:4}}><Ic.back/></button>
         <div>
           <div style={{fontSize:11,color,fontWeight:700,letterSpacing:2}}>{s.label}</div>
           <div style={{fontSize:14,color:"rgba(255,255,255,0.5)"}}>{s.subtitle}</div>
         </div>
+        {readOnly && <div style={{marginLeft:"auto",fontSize:11,color:"rgba(255,255,255,0.3)",background:"rgba(255,255,255,0.06)",padding:"3px 10px",borderRadius:20}}>HISTORIQUE</div>}
       </div>
+
       <div style={{padding:"20px 20px",paddingBottom: readOnly ? "40px" : "120px"}}>
         <div style={{background:`${color}12`,border:`1px solid ${color}30`,borderRadius:14,padding:"14px 16px",marginBottom:20,display:"flex",gap:16,alignItems:"center"}}>
           <div style={{fontSize:32}}>{sessionKey==="A"?"🔵":sessionKey==="B"?"🟢":sessionKey==="C"?"🟠":"⚡"}</div>
@@ -291,14 +286,17 @@ function SessionPreview({sessionKey, data, onUpdate, onStart, onBack, readOnly=f
             {isBonus&&<div style={{fontSize:12,color,marginTop:4,fontStyle:"italic"}}>{s.note}</div>}
           </div>
         </div>
+
         {!readOnly && (
           <div style={{fontSize:13,color:"rgba(255,255,255,0.35)",background:"rgba(255,255,255,0.04)",borderRadius:10,padding:"10px 14px",marginBottom:18,fontStyle:"italic"}}>
             💡 Modifie un exercice avant de commencer si besoin. Tu pourras aussi ajuster après la séance.
           </div>
         )}
+
         <div style={{fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:2,marginBottom:12}}>
           {isBonus ? "CIRCUIT — 4 TOURS" : "EXERCICES"}
         </div>
+
         {exs.map((ex,i)=>{
           const override = data.overrides[ex.id];
           const sets = override?.sets ?? ex.sets;
@@ -306,13 +304,13 @@ function SessionPreview({sessionKey, data, onUpdate, onStart, onBack, readOnly=f
           const load = override?.load ?? ex.load;
           const rest = override?.rest ?? ex.rest;
           const hasNote = override?.userNote;
-          const isModified = !!(override?.sets || override?.reps || override?.load);
+          const isModified = !!(override?.sets || override?.reps || override?.load || override?.rest);
           return(
             <div key={ex.id} style={{marginBottom:10,background:"rgba(255,255,255,0.03)",borderRadius:12,border:`1px solid ${isModified?color+"40":"rgba(255,255,255,0.06)"}`,overflow:"hidden"}}>
               <div style={{display:"flex",alignItems:"flex-start",gap:12,padding:"12px 14px"}}>
                 <div style={{width:26,height:26,borderRadius:"50%",background:`${color}20`,border:`1px solid ${color}40`,display:"flex",alignItems:"center",justifyContent:"center",fontSize:12,fontWeight:700,color,flexShrink:0,marginTop:1}}>{i+1}</div>
                 <div style={{flex:1,minWidth:0}}>
-                  <div style={{fontSize:15,fontWeight:600,marginBottom:6,display:"flex",alignItems:"center",gap:8}}>
+                  <div style={{fontSize:15,fontWeight:600,marginBottom:6,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}}>
                     {ex.name}
                     {isModified&&<span style={{fontSize:10,color,background:`${color}18`,padding:"1px 6px",borderRadius:10}}>modifié</span>}
                   </div>
@@ -320,7 +318,7 @@ function SessionPreview({sessionKey, data, onUpdate, onStart, onBack, readOnly=f
                     <span style={{fontSize:12,background:"rgba(255,255,255,0.07)",borderRadius:6,padding:"2px 8px",color:"rgba(255,255,255,0.7)"}}>{sets} séries</span>
                     <span style={{fontSize:12,background:"rgba(255,255,255,0.07)",borderRadius:6,padding:"2px 8px",color:"rgba(255,255,255,0.7)"}}>{reps}</span>
                     <span style={{fontSize:12,background:`${color}18`,borderRadius:6,padding:"2px 8px",color,fontWeight:600}}>{load}</span>
-                    <span style={{fontSize:12,background:"rgba(255,255,255,0.05)",borderRadius:6,padding:"2px 8px",color:"rgba(255,255,255,0.4)"}}>{rest}" repos</span>
+                    <span style={{fontSize:12,background:"rgba(255,255,255,0.05)",borderRadius:6,padding:"2px 8px",color:"rgba(255,255,255,0.4)"}}>⏱ {rest}" / série</span>
                   </div>
                   {hasNote&&<div style={{fontSize:12,color,marginTop:6,fontStyle:"italic"}}>📝 {override.userNote}</div>}
                 </div>
@@ -331,6 +329,7 @@ function SessionPreview({sessionKey, data, onUpdate, onStart, onBack, readOnly=f
             </div>
           );
         })}
+
         {!isBonus && s.surf?.length > 0 && (
           <div style={{marginTop:16}}>
             <div style={{fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:2,marginBottom:10}}>🌊 BLOC SURF</div>
@@ -343,13 +342,15 @@ function SessionPreview({sessionKey, data, onUpdate, onStart, onBack, readOnly=f
           </div>
         )}
       </div>
+
       {!readOnly && (
-        <div style={{position:"fixed",bottom:0,left:0,right:0,padding:"16px 20px",paddingBottom:"max(env(safe-area-inset-bottom),16px)",background:"linear-gradient(to top, #0a0f1e 70%, transparent)"}}>
+        <div style={{position:"fixed",bottom:0,left:0,right:0,padding:"16px 20px 32px",background:"linear-gradient(to top, #0a0f1e 70%, transparent)"}}>
           <button onClick={onStart} style={{width:"100%",padding:"16px",background:color,border:"none",borderRadius:14,color:"#fff",fontSize:17,fontWeight:800,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
             <Ic.play/> Commencer la séance
           </button>
         </div>
       )}
+
       {editIdx!==null && (
         <EditModal ex={exs[editIdx]}
           current={data.overrides[exs[editIdx].id] || {sets:exs[editIdx].sets,reps:exs[editIdx].reps,load:exs[editIdx].load,rest:exs[editIdx].rest}}
@@ -360,37 +361,46 @@ function SessionPreview({sessionKey, data, onUpdate, onStart, onBack, readOnly=f
 }
 
 // ─── SESSION VIEW ─────────────────────────────────────────────────────────────
-function SessionView({sessionKey,data,onUpdate,onBack}){
+function SessionView({sessionKey, data, onUpdate, onBack}){
   const isBonus = sessionKey === "BONUS";
   const s = isBonus ? BONUS : PROGRAM[sessionKey];
-  const exs=s.exercises, color=s.color;
-  const[step,setStep]=useState(0);
-  const[phase,setPhase]=useState("exercise");
-  const[tour,setTour]=useState(1);
-  const totalSteps=exs.length;
-  const inSurf=!isBonus && step===totalSteps;
-  const curEx=!inSurf?exs[step]:null;
-  const curData=curEx?(data.overrides[curEx.id]||{sets:curEx.sets,reps:curEx.reps,load:curEx.load}):null;
-  const isLastOfLastTour = isBonus && step===totalSteps-1 && tour===4;
+  const exs = s.exercises, color = s.color;
+  const [step, setStep] = useState(0);
+  const [tour, setTour] = useState(1);
+  const [liveNotes, setLiveNotes] = useState({});
 
-  const completeExercise=()=>setPhase("rest");
-  const afterRest=()=>{
-    setPhase("exercise");
-    if(isBonus && step+1===totalSteps && tour<4){ setStep(0); setTour(t=>t+1); }
-    else { setStep(s=>s+1); }
+  const totalSteps = exs.length;
+  const inSurf = !isBonus && step === totalSteps;
+  const curEx = !inSurf ? exs[step] : null;
+  const curData = curEx ? (data.overrides[curEx.id] || {sets:curEx.sets,reps:curEx.reps,load:curEx.load,rest:curEx.rest}) : null;
+  const isLastOfLastTour = isBonus && step === totalSteps-1 && tour === 4;
+
+  const goNext = () => {
+    if (isBonus && step+1 === totalSteps && tour < 4) {
+      setStep(0); setTour(t=>t+1);
+    } else {
+      setStep(s=>s+1);
+    }
   };
-  const completeSession=()=>{
+
+  const completeSession = () => {
     const sessionId = isBonus ? "X" : sessionKey;
-    const entry={date:todayStr(),type:"gym",session:sessionId,label:s.label,
-      exercises:exs.map(ex=>({name:ex.name,...(data.overrides[ex.id]||{sets:ex.sets,reps:ex.reps,load:ex.load})}))};
-    const newLog=[...(data.log||[]).filter(e=>e.date!==todayStr()),{date:todayStr(),type:"gym",session:sessionId}];
-    onUpdate({...data,history:[entry,...(data.history||[])].slice(0,30),log:newLog});
+    const entry = {
+      date: todayStr(), type:"gym", session:sessionId, label:s.label,
+      exercises: exs.map(ex => ({
+        name: ex.name,
+        ...(data.overrides[ex.id] || {sets:ex.sets, reps:ex.reps, load:ex.load}),
+        ...(liveNotes[ex.id] ? {sessionNote: liveNotes[ex.id]} : {})
+      }))
+    };
+    const newLog = [...(data.log||[]).filter(e=>e.date!==todayStr()), {date:todayStr(),type:"gym",session:sessionId}];
+    onUpdate({...data, history:[entry,...(data.history||[])].slice(0,30), log:newLog});
     onBack();
   };
 
   return(
     <div style={{minHeight:"100vh",background:"#0a0f1e",color:"#fff",fontFamily:"'Outfit',sans-serif"}}>
-      <div style={{padding:"16px 20px 0",paddingTop:"max(env(safe-area-inset-top),16px)",display:"flex",alignItems:"center",gap:12}}>
+      <div style={{padding:"16px 20px 0",display:"flex",alignItems:"center",gap:12}}>
         <button onClick={onBack} style={{background:"none",border:"none",color:"rgba(255,255,255,0.45)",cursor:"pointer",padding:4}}><Ic.back/></button>
         <div>
           <div style={{fontSize:11,color,fontWeight:700,letterSpacing:2}}>{s.label}</div>
@@ -400,54 +410,77 @@ function SessionView({sessionKey,data,onUpdate,onBack}){
           {inSurf?"🌊 Surf":isBonus?`Tour ${tour}/4 · ${step+1}/${totalSteps}`:`${step+1}/${totalSteps}`}
         </div>
       </div>
+
       <div style={{margin:"12px 20px 0",height:3,background:"rgba(255,255,255,0.07)",borderRadius:2}}>
-        <div style={{height:"100%",borderRadius:2,background:color,width:`${isBonus?(((tour-1)*totalSteps+step)/(4*totalSteps))*100:inSurf?96:(step/totalSteps)*90}%`,transition:"width 0.4s"}}/>
+        <div style={{height:"100%",borderRadius:2,background:color,
+          width:`${isBonus?(((tour-1)*totalSteps+step)/(4*totalSteps))*100:inSurf?96:(step/totalSteps)*90}%`,
+          transition:"width 0.4s"}}/>
       </div>
+
       {isBonus&&(
         <div style={{display:"flex",gap:6,padding:"10px 20px 0"}}>
           {[1,2,3,4].map(t=>(
-            <div key={t} style={{flex:1,height:4,borderRadius:2,background:t<tour?"#a855f7":t===tour?"rgba(168,85,247,0.5)":"rgba(255,255,255,0.08)"}}/>
+            <div key={t} style={{flex:1,height:4,borderRadius:2,
+              background:t<tour?"#a855f7":t===tour?"rgba(168,85,247,0.5)":"rgba(255,255,255,0.08)"}}/>
           ))}
         </div>
       )}
+
       <div style={{padding:"20px 20px 100px"}}>
         {isBonus&&(
           <div style={{background:"rgba(168,85,247,0.1)",border:"1px solid rgba(168,85,247,0.25)",borderRadius:12,padding:"10px 14px",marginBottom:16,fontSize:13,color:"rgba(168,85,247,0.9)"}}>
             ⚡ {s.note}
           </div>
         )}
-        {curEx&&phase==="exercise"&&(
+
+        {curEx && (
           <div>
             <div style={{background:"rgba(255,255,255,0.04)",borderRadius:16,padding:"20px",border:`1px solid ${color}30`,marginBottom:16}}>
               <div style={{fontSize:21,fontWeight:700,lineHeight:1.3,marginBottom:16}}>{curEx.name}</div>
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:14}}>
-                {[["Séries",curData.sets],["Reps",curData.reps],["Charge",curData.load]].map(([label,val])=>(
-                  <div key={label} style={{background:"rgba(255,255,255,0.07)",borderRadius:10,padding:"12px 6px",textAlign:"center"}}>
-                    <div style={{fontSize:20,fontWeight:700,color}}>{val}</div>
-                    <div style={{fontSize:10,color:"rgba(255,255,255,0.38)",marginTop:2}}>{label}</div>
+
+              {/* 4 stats: séries / reps / charge / repos inter-séries */}
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:8,marginBottom:14}}>
+                {[
+                  ["Séries", curData.sets],
+                  ["Reps", curData.reps],
+                  ["Charge", curData.load],
+                  ["Repos/série", (curData.rest ?? curEx.rest) + '"']
+                ].map(([label,val])=>(
+                  <div key={label} style={{background:"rgba(255,255,255,0.07)",borderRadius:10,padding:"10px 4px",textAlign:"center"}}>
+                    <div style={{fontSize:15,fontWeight:700,color,lineHeight:1.2}}>{val}</div>
+                    <div style={{fontSize:9,color:"rgba(255,255,255,0.38)",marginTop:3}}>{label}</div>
                   </div>
                 ))}
               </div>
-              <div style={{fontSize:13,color:"rgba(255,255,255,0.4)",fontStyle:"italic",background:"rgba(255,255,255,0.04)",padding:"8px 12px",borderRadius:8}}>💡 {curEx.notes}</div>
-              {curData.userNote&&<div style={{fontSize:13,color,marginTop:8,background:`${color}15`,padding:"8px 12px",borderRadius:8}}>📝 {curData.userNote}</div>}
+
+              <div style={{fontSize:13,color:"rgba(255,255,255,0.4)",fontStyle:"italic",background:"rgba(255,255,255,0.04)",padding:"8px 12px",borderRadius:8,marginBottom:12}}>
+                💡 {curEx.notes}
+              </div>
+
+              {/* Note de séance en live */}
+              <div>
+                <div style={{fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:1,marginBottom:6}}>NOTE DE SÉANCE</div>
+                <textarea
+                  value={liveNotes[curEx.id]||""}
+                  onChange={e=>setLiveNotes(n=>({...n,[curEx.id]:e.target.value}))}
+                  rows={2}
+                  placeholder="Douleur, ressenti, charge utilisée, variante..."
+                  style={{width:"100%",background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.1)",
+                    borderRadius:10,padding:"10px 14px",color:"#fff",fontSize:13,fontFamily:"inherit",
+                    resize:"none",boxSizing:"border-box",outline:"none"}}
+                />
+              </div>
             </div>
-            <button onClick={isLastOfLastTour?completeSession:completeExercise} style={{width:"100%",padding:"16px",background:color,border:"none",borderRadius:14,color:"#fff",fontSize:16,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-              <Ic.check/> {isLastOfLastTour?"Terminer le circuit ✓":"Exercice terminé"}
+
+            <button onClick={isLastOfLastTour ? completeSession : goNext}
+              style={{width:"100%",padding:"16px",background:color,border:"none",borderRadius:14,
+                color:"#fff",fontSize:16,fontWeight:700,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+              <Ic.check/> {isLastOfLastTour ? "Terminer le circuit ✓" : "Exercice terminé →"}
             </button>
           </div>
         )}
-        {curEx&&phase==="rest"&&(
-          <div style={{display:"flex",flexDirection:"column",alignItems:"center",paddingTop:20}}>
-            <div style={{fontSize:14,color:"rgba(255,255,255,0.4)",marginBottom:6}}>
-              {isBonus&&step+1===totalSteps&&tour<4?`Fin du tour ${tour} — repos avant tour ${tour+1}`:"Prochain"}
-            </div>
-            <div style={{fontSize:19,fontWeight:700,textAlign:"center",marginBottom:28}}>
-              {isBonus&&step+1===totalSteps&&tour<4?`Tour ${tour+1} / 4`:!inSurf&&step+1<totalSteps?exs[step+1].name:!isBonus?"🌊 Bloc surf":"Terminé !"}
-            </div>
-            <RestTimer seconds={curData?.rest||curEx.rest} color={color} onDone={afterRest}/>
-          </div>
-        )}
-        {inSurf&&!isBonus&&(
+
+        {inSurf && !isBonus && (
           <div>
             <div style={{fontSize:22,fontWeight:800,color:"#22d3ee",marginBottom:6}}>🌊 Bloc surf</div>
             <div style={{fontSize:14,color:"rgba(255,255,255,0.4)",marginBottom:20}}>Protection coiffe des rotateurs</div>
@@ -468,18 +501,26 @@ function SessionView({sessionKey,data,onUpdate,onBack}){
 }
 
 // ─── HISTORY VIEW ─────────────────────────────────────────────────────────────
-function HistoryView({history,onBack,onClear,onReview,onExport,onImport}){
+function HistoryView({history, onBack, onClear, onReview, onExport, onImport, onUpdateDate}){
   const fileRef = useRef(null);
+  const [dateEditEntry, setDateEditEntry] = useState(null);
+
+  const handleSaveDate = (index, newDate) => {
+    onUpdateDate(index, newDate);
+    setDateEditEntry(null);
+  };
+
   return(
     <div style={{minHeight:"100vh",background:"#0a0f1e",color:"#fff",fontFamily:"'Outfit',sans-serif"}}>
-      <div style={{padding:"16px 20px",paddingTop:"max(env(safe-area-inset-top),16px)",display:"flex",alignItems:"center",gap:10,borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
+      <div style={{padding:"16px 20px",display:"flex",alignItems:"center",gap:10,borderBottom:"1px solid rgba(255,255,255,0.07)"}}>
         <button onClick={onBack} style={{background:"none",border:"none",color:"rgba(255,255,255,0.45)",cursor:"pointer",padding:4}}><Ic.back/></button>
         <div style={{fontSize:18,fontWeight:700}}>Historique</div>
         <div style={{marginLeft:"auto",display:"flex",gap:8,alignItems:"center"}}>
           <button onClick={()=>fileRef.current.click()} style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.12)",color:"rgba(255,255,255,0.6)",borderRadius:8,padding:"5px 10px",fontSize:12,cursor:"pointer"}}>
             📥 Importer
           </button>
-          <input ref={fileRef} type="file" accept=".json" style={{display:"none"}} onChange={e=>{if(e.target.files[0])onImport(e.target.files[0]);e.target.value="";}}/>
+          <input ref={fileRef} type="file" accept=".json" style={{display:"none"}}
+            onChange={e=>{ if(e.target.files[0]) onImport(e.target.files[0]); e.target.value=""; }}/>
           <button onClick={onExport} style={{background:"rgba(14,165,233,0.12)",border:"1px solid rgba(14,165,233,0.3)",color:"#0ea5e9",borderRadius:8,padding:"5px 10px",fontSize:12,cursor:"pointer",fontWeight:600}}>
             📤 Exporter
           </button>
@@ -488,20 +529,27 @@ function HistoryView({history,onBack,onClear,onReview,onExport,onImport}){
           </button>}
         </div>
       </div>
+
       <div style={{padding:"16px 20px 40px"}}>
         {!history.length&&<div style={{textAlign:"center",color:"rgba(255,255,255,0.2)",paddingTop:60,fontSize:15}}>Aucune activité enregistrée</div>}
         {history.map((entry,i)=>{
-          const isSurf=entry.type==="surf";
-          const sessionKey=entry.session==="X"?"BONUS":entry.session;
-          const col=isSurf?"#22d3ee":(PROGRAM[sessionKey]?.color||BONUS.color||"#888");
-          const canReview=!isSurf&&(PROGRAM[sessionKey]||sessionKey==="BONUS");
+          const isSurf = entry.type==="surf";
+          const sessionKey = entry.session==="X" ? "BONUS" : entry.session;
+          const col = isSurf ? "#22d3ee" : (PROGRAM[sessionKey]?.color||BONUS.color||"#888");
+          const canReview = !isSurf && (PROGRAM[sessionKey] || sessionKey==="BONUS");
           return(
             <div key={i} style={{background:"rgba(255,255,255,0.04)",borderRadius:14,border:`1px solid ${col}25`,marginBottom:12,overflow:"hidden"}}>
               <div style={{background:`${col}15`,padding:"12px 16px",display:"flex",alignItems:"center",gap:10}}>
                 <div style={{fontSize:20}}>{isSurf?"🏄":"💪"}</div>
                 <div style={{flex:1}}>
                   <div style={{fontSize:13,color:col,fontWeight:700}}>{isSurf?"SESSION SURF":entry.label}</div>
-                  <div style={{fontSize:12,color:"rgba(255,255,255,0.35)",marginTop:1}}>{entry.date}</div>
+                  <div style={{display:"flex",alignItems:"center",gap:6,marginTop:2}}>
+                    <div style={{fontSize:12,color:"rgba(255,255,255,0.35)"}}>{entry.date}</div>
+                    <button onClick={()=>setDateEditEntry({entry,index:i})}
+                      style={{background:"none",border:"none",color:"rgba(255,255,255,0.3)",cursor:"pointer",padding:"2px 5px",display:"flex",alignItems:"center",gap:3,fontSize:11}}>
+                      <Ic.calendar/> modifier
+                    </button>
+                  </div>
                 </div>
                 {canReview&&(
                   <button onClick={()=>onReview(sessionKey)} style={{background:`${col}20`,border:`1px solid ${col}35`,borderRadius:8,padding:"5px 10px",color:col,cursor:"pointer",fontSize:12,fontWeight:600,display:"flex",gap:4,alignItems:"center"}}>
@@ -512,9 +560,14 @@ function HistoryView({history,onBack,onClear,onReview,onExport,onImport}){
               {!isSurf&&entry.exercises&&(
                 <div style={{padding:"10px 16px"}}>
                   {entry.exercises.map((ex,j)=>(
-                    <div key={j} style={{display:"flex",justifyContent:"space-between",padding:"4px 0",borderBottom:j<entry.exercises.length-1?"1px solid rgba(255,255,255,0.05)":"none"}}>
-                      <div style={{fontSize:13,color:"rgba(255,255,255,0.6)",flex:1}}>{ex.name}</div>
-                      <div style={{fontSize:13,color:col,fontWeight:600,marginLeft:10}}>{ex.sets}×{ex.reps}</div>
+                    <div key={j} style={{padding:"5px 0",borderBottom:j<entry.exercises.length-1?"1px solid rgba(255,255,255,0.05)":"none"}}>
+                      <div style={{display:"flex",justifyContent:"space-between"}}>
+                        <div style={{fontSize:13,color:"rgba(255,255,255,0.6)",flex:1}}>{ex.name}</div>
+                        <div style={{fontSize:13,color:col,fontWeight:600,marginLeft:10}}>{ex.sets}×{ex.reps}</div>
+                      </div>
+                      {ex.sessionNote&&(
+                        <div style={{fontSize:12,color:"rgba(255,200,100,0.7)",marginTop:2,fontStyle:"italic"}}>📝 {ex.sessionNote}</div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -523,6 +576,11 @@ function HistoryView({history,onBack,onClear,onReview,onExport,onImport}){
           );
         })}
       </div>
+
+      {dateEditEntry && (
+        <DateEditModal entry={dateEditEntry.entry} entryIndex={dateEditEntry.index}
+          onSave={handleSaveDate} onClose={()=>setDateEditEntry(null)}/>
+      )}
     </div>
   );
 }
@@ -595,7 +653,7 @@ function StatusCard({statusInfo,nextSess,onSurf,onStartGym}){
           </div>
         </div>
         <div style={{fontSize:13,color:"rgba(255,255,255,0.35)",background:"rgba(255,255,255,0.04)",borderRadius:10,padding:"10px 14px"}}>
-          ⏭ Prochaine : <span style={{color:"#fbbf24",fontWeight:700}}>Séance {nextSess} — {s.subtitle}</span>
+          ⏭ Prochaine séance : <span style={{color:"#fbbf24",fontWeight:700}}>Séance {nextSess} — {s.subtitle}</span>
         </div>
       </div>
     );
@@ -637,7 +695,7 @@ function Home({data,onUpdate,onStartGym,onHistory}){
   };
   return(
     <div style={{minHeight:"100vh",background:"#0a0f1e",color:"#fff",fontFamily:"'Outfit',sans-serif"}}>
-      <div style={{padding:"36px 22px 18px",paddingTop:"max(env(safe-area-inset-top, 36px), 36px)",background:"linear-gradient(160deg,#0e1e3a 0%,#0a0f1e 100%)"}}>
+      <div style={{padding:"36px 22px 18px",background:"linear-gradient(160deg,#0e1e3a 0%,#0a0f1e 100%)"}}>
         <div style={{fontSize:11,color:"rgba(255,255,255,0.3)",letterSpacing:3,marginBottom:6}}>
           {new Date().toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}).toUpperCase()}
         </div>
@@ -723,41 +781,56 @@ function Onboarding({onDone}){
 }
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
-function App(){
+export default function App(){
   const[data,setData]=useState(loadData);
   const[screen,setScreen]=useState("home");
   const[activeSession,setActive]=useState(null);
+
   useEffect(()=>{ saveData(data); },[data]);
-  const update=d=>setData(d);
+  const update = d => setData(d);
+
+  const handleUpdateDate = (historyIndex, newDate) => {
+    setData(d => {
+      const newHistory = [...(d.history||[])];
+      const oldDate = newHistory[historyIndex].date;
+      newHistory[historyIndex] = {...newHistory[historyIndex], date: newDate};
+      let newLog = [...(d.log||[])];
+      const entry = newHistory[historyIndex];
+      const logIdx = newLog.findIndex(e => e.date === oldDate && e.type === entry.type);
+      if (logIdx !== -1) newLog[logIdx] = {...newLog[logIdx], date: newDate};
+      return {...d, history: newHistory, log: newLog};
+    });
+  };
 
   if(!data.initialized){
     return <Onboarding onDone={(init)=>{
-      const newData={overrides:{},history:init.history||[],log:init.log||[],initialized:true};
-      setData(newData);
+      setData({overrides:{},history:init.history||[],log:init.log||[],initialized:true});
     }}/>;
   }
-  if(screen==="history") return <HistoryView history={data.history||[]}
+
+  if(screen==="history") return <HistoryView
+    history={data.history||[]}
     onBack={()=>setScreen("home")}
     onReview={key=>{setActive(key);setScreen("review");}}
     onExport={()=>exportData(data)}
     onImport={(file)=>importData(file,d=>{setData(d);setScreen("home");},()=>alert("Fichier invalide"))}
-    onClear={()=>{if(window.confirm("Effacer tout l'historique ?"))setData(d=>({...d,history:[],log:[]}));}}/>;
-  if(screen==="review"&&activeSession) return <SessionPreview sessionKey={activeSession} data={data} onUpdate={update} onStart={null} onBack={()=>setScreen("history")} readOnly={false}/>;
-  if(screen==="preview"&&activeSession) return <SessionPreview sessionKey={activeSession} data={data} onUpdate={update} onStart={()=>setScreen("session")} onBack={()=>setScreen("home")} readOnly={false}/>;
-  if(screen==="session"&&activeSession) return <SessionView sessionKey={activeSession} data={data} onUpdate={update} onBack={()=>setScreen("home")}/>;
-  return <Home data={data} onUpdate={update} onStartGym={k=>{setActive(k);setScreen("preview");}} onHistory={()=>setScreen("history")}/>;
+    onClear={()=>{if(confirm("Effacer tout l'historique ?"))setData(d=>({...d,history:[],log:[]}));}}
+    onUpdateDate={handleUpdateDate}/>;
+
+  if(screen==="review"&&activeSession) return <SessionPreview sessionKey={activeSession} data={data}
+    onUpdate={update} onStart={null} onBack={()=>setScreen("history")} readOnly={false}/>;
+
+  if(screen==="preview"&&activeSession) return <SessionPreview sessionKey={activeSession} data={data}
+    onUpdate={update} onStart={()=>setScreen("session")} onBack={()=>setScreen("home")} readOnly={false}/>;
+
+  if(screen==="session"&&activeSession) return <SessionView sessionKey={activeSession} data={data}
+    onUpdate={update} onBack={()=>setScreen("home")}/>;
+
+  return <Home data={data} onUpdate={update}
+    onStartGym={k=>{setActive(k);setScreen("preview");}}
+    onHistory={()=>setScreen("history")}/>;
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
-  </script>
-
-  <script>
-    // Register service worker for offline support
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
-      });
-    }
   </script>
 </body>
 </html>
