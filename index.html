@@ -29,69 +29,50 @@ const { useState, useEffect, useRef, useCallback } = React;
 
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
+const KINE_EX = [
+  { id:"K1", name:"Ex. 1 Kiné — Face pull + Rowing coudes au corps", load:"Élastique 15 kg",  sets:3, reps:"20 (10+10)", rest:60, notes:"Face pull puis rowing coudes collés aux flancs — bien rétracter les omoplates" },
+  { id:"K2", name:"Ex. 2 Kiné — Rotation tronc bras stabilisé",      load:"Élastique bande", sets:3, reps:"10/côté/bras", rest:60, notes:"Bras à 90° fixe, rotation du tronc seule — élastique à hauteur épaule" },
+  { id:"K3", name:"Ex. 3 Kiné — Élévation avant-bras élastique",     load:"Élastique bande", sets:3, reps:"6",            rest:60, notes:"Élastique autour des avant-bras, petits mouvements int/ext puis montée lente" },
+];
+
 const PROGRAM = {
   A: {
     label: "FULL BODY A", subtitle: "Force & Dos", color: "#0ea5e9",
     exercises: [
-      { id:"A1", name:"Pull-over élastique couché",      load:"15→20 kg",   sets:4, reps:"12",      rest:90, notes:"Geste rame — priorité absolue" },
-      { id:"A2", name:"Rowing bilatéral élastique",      load:"20→25 kg",   sets:4, reps:"12",      rest:75, notes:"Maintien 1 sec en haut" },
-      { id:"A3", name:"Développé épaules élastique",     load:"10→15 kg",   sets:3, reps:"12",      rest:75, notes:"Deltoïdes — silhouette athlétique" },
-      { id:"A4", name:"Pompes pieds surélevées",         load:"Poids corps", sets:4, reps:"12-15",  rest:60, notes:"Haut pectoraux + épaule antérieure" },
-      { id:"A5", name:"Élévation latérale",              load:"3 kg",        sets:3, reps:"15",      rest:60, notes:"Mouvements stricts, pas d'élan" },
-      { id:"A6", name:"Gainage planche",                 load:"—",           sets:3, reps:'70"',     rest:60, notes:"Corps rigide, respiration contrôlée" },
+      ...KINE_EX,
+      { id:"A1", name:"Squat bulgare élastique",       load:"3 kg haltère",    sets:4, reps:"8/jambe",  rest:90, notes:"Puissance jambes — équilibre surf" },
+      { id:"A2", name:"Pompes pieds surélevées",       load:"Poids corps",     sets:4, reps:"13",       rest:75, notes:"Haut pectoraux + épaule antérieure" },
+      { id:"A3", name:"Rowing bilatéral élastique",    load:"Élastique bande", sets:4, reps:"15",       rest:75, notes:"Tester élastique bande kiné — maintien 1 sec en haut" },
+      { id:"A4", name:"Élévation latérale",            load:"3 kg haltère",    sets:3, reps:"16",       rest:60, notes:"Mouvements stricts, pas d'élan — largeur épaules" },
+      { id:"A5", name:"Pull-over élastique couché",    load:"15 kg",           sets:4, reps:"25",       rest:60, notes:"Allongé, geste rame — priorité absolue surf" },
+      { id:"A6", name:"Hollow hold",                   load:"—",               sets:3, reps:'40"',      rest:45, notes:"Core profond — position surf" },
     ],
-    surf: [
-      { name:"Pull-over léger",              vol:"2×20 — 10 kg" },
-      { name:"Rotation externe coude collé", vol:'2×15 — 5 kg' },
-      { name:"Planche latérale",             vol:'2×35" / côté' },
-    ]
+    surf: []
   },
   B: {
     label: "FULL BODY B", subtitle: "Stabilité & Jambes", color: "#10b981",
     exercises: [
-      { id:"B1", name:"Squat bulgare élastique",       load:"10→15 kg",   sets:4, reps:"8/jambe",  rest:90, notes:"Puissance jambes — équilibre surf" },
-      { id:"B2", name:"Pompes serrées tempo lent",     load:"Poids corps", sets:4, reps:"10-12",   rest:60, notes:"3-1-1 — contraction longue" },
-      { id:"B3", name:"Rowing tempo lent élastique",   load:"20→25 kg",   sets:3, reps:"15",       rest:60, notes:"3-0-1 — dos en tension" },
-      { id:"B4", name:"Face pull élastique",           load:"5→10 kg",    sets:3, reps:"20",       rest:45, notes:"Rotation externe — santé épaule" },
-      { id:"B5", name:"Pompe avec rotation",           load:"Poids corps", sets:3, reps:"8/côté",   rest:60, notes:"Pompe + ouverture bras vers plafond en rotation — pectoraux + core, safe coiffe" },
-      { id:"B6", name:"Reverse lunge",                 load:"3 kg",       sets:3, reps:"10/jambe", rest:60, notes:"Équilibre + fessier" },
-      { id:"B7", name:"Hollow hold",                   load:"—",          sets:3, reps:'35"',      rest:45, notes:"Core profond — position surf" },
+      ...KINE_EX,
+      { id:"B1", name:"Fentes marche",                 load:"3 kg haltère",    sets:3, reps:"23",       rest:60, notes:"Jambes + souffle" },
+      { id:"B2", name:"Pompes serrées tempo lent",     load:"Poids corps",     sets:4, reps:"11",       rest:60, notes:"3-1-1 — contraction longue, triceps + pectoraux internes" },
+      { id:"B3", name:"Élévation latérale",            load:"3 kg haltère",    sets:3, reps:"16",       rest:60, notes:"Mouvements stricts, pas d'élan — largeur épaules" },
+      { id:"B4", name:"Pull-over élastique couché",    load:"15 kg",           sets:4, reps:"25",       rest:60, notes:"Allongé, geste rame — priorité absolue surf" },
+      { id:"B5", name:"Gainage planche",               load:"—",               sets:3, reps:'75"',      rest:60, notes:"Corps rigide, respiration contrôlée" },
     ],
-    surf: [
-      { name:"Rotation externe", vol:"2×15 — 5 kg" },
-      { name:"Rowing léger",     vol:"2×20 — 10 kg" },
-    ]
+    surf: []
   },
   C: {
     label: "FULL BODY C", subtitle: "Explosivité & Core", color: "#f97316",
     exercises: [
-      { id:"C1", name:"Pull-over dynamique explosif",   load:"15→20 kg",   sets:4, reps:"10",       rest:60, notes:"Explosif montée, lent descente" },
-      { id:"C2", name:"Pompes lentes (3 sec descente)", load:"Poids corps", sets:3, reps:"15",       rest:60, notes:"Hypertrophie excentrique" },
-      { id:"C3", name:"Fentes marche",                  load:"3 kg",        sets:3, reps:"20 total", rest:60, notes:"Jambes + souffle" },
-      { id:"C4", name:"Mountain climbers",              load:"—",           sets:3, reps:'45"',      rest:60, notes:"Core + cardio — paddle intensif" },
-      { id:"C5", name:"Élévation latérale / frontale",  load:"3 kg",        sets:3, reps:"15",       rest:45, notes:"Largeur épaules" },
-      { id:"C6", name:"Relevés de jambes",              load:"—",           sets:3, reps:"12",       rest:30, notes:"Abdos bas + fléchisseurs hanche" },
-      { id:"C7", name:"Crunch",                         load:"—",           sets:3, reps:"15",       rest:30, notes:"Finition séance" },
+      ...KINE_EX,
+      { id:"C1", name:"Reverse lunge",                 load:"3 kg haltère",    sets:3, reps:"10/jambe", rest:60, notes:"Équilibre + fessier" },
+      { id:"C2", name:"Pompes lentes (3 sec descente)", load:"Poids corps",    sets:3, reps:"16",       rest:60, notes:"Hypertrophie excentrique" },
+      { id:"C3", name:"Élévation latérale",            load:"3 kg haltère",    sets:3, reps:"16",       rest:60, notes:"Mouvements stricts, pas d'élan — largeur épaules" },
+      { id:"C4", name:"Pull-over élastique couché",    load:"15 kg",           sets:4, reps:"25",       rest:60, notes:"Allongé, geste rame — priorité absolue surf" },
+      { id:"C5", name:"Hollow hold",                   load:"—",               sets:3, reps:'40"',      rest:45, notes:"Core profond — position surf" },
     ],
-    surf: [
-      { name:"Pull-over léger",  vol:"1×20 — 10 kg" },
-      { name:"Rotation externe", vol:"1×15 — 5 kg" },
-    ]
+    surf: []
   }
-};
-
-const BONUS = {
-  label: "CIRCUIT BONUS", subtitle: "Semaine sans surf · 4 tours", color: "#a855f7",
-  note: '4 tours complets · Repos 60" entre les tours · 30-35 min',
-  exercises: [
-    { id:"X1", name:"Pull-over élastique",  load:"15 kg",       sets:4, reps:"15",       rest:60, notes:"Maintenir le geste rame" },
-    { id:"X2", name:"Pompes explosives",    load:"Poids corps",  sets:4, reps:"12",       rest:60, notes:"Puissance décollage vague" },
-    { id:"X3", name:"Reverse lunge",        load:"3 kg",         sets:4, reps:"10/jambe", rest:60, notes:"Jambes + stabilité surf" },
-    { id:"X4", name:"Mountain climbers",    load:"—",            sets:4, reps:'45"',      rest:60, notes:"Souffle + core" },
-    { id:"X5", name:"Élévation latérale",   load:"3 kg",         sets:4, reps:"15",       rest:60, notes:"Épaules — entretien" },
-    { id:"X6", name:"Planche",              load:"—",            sets:4, reps:'60"',      rest:60, notes:"Gainage — fin de tour" },
-  ],
-  surf: []
 };
 
 const STORAGE_KEY = "surf_tracker_v4";
